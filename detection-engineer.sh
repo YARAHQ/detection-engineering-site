@@ -325,7 +325,22 @@ review_rule() {
     
     # COMPILE CHECK: Verify the rule compiles
     log_info "Validating rule compilation..."
-    if command -v yara >/dev/null 2>&1; then
+    local compile_script="$SKILL_DIR/scripts/yara-compile-loop.py"
+    
+    if [ -f "$compile_script" ] && command -v python3 >/dev/null 2>&1; then
+        if python3 "$compile_script" "$improved_rule" 1 2>/dev/null; then
+            log_success "Rule compiles successfully!"
+        else
+            log_warn "Rule has compilation issues"
+            echo ""
+            echo "💡 Run the fix loop:"
+            echo "   python3 $compile_script $improved_rule"
+            echo ""
+            echo "   Or use bash version:"
+            echo "   $SKILL_DIR/scripts/yara-compile-loop.sh $improved_rule"
+        fi
+    elif command -v yara >/dev/null 2>&1; then
+        # Fallback to simple yara check
         if yara -c "$improved_rule" /dev/null 2>/dev/null; then
             log_success "Rule compiles successfully!"
         else
@@ -334,8 +349,7 @@ review_rule() {
             echo "⚠️  ERRORS:"
             yara -c "$improved_rule" /dev/null 2>&1 | head -10
             echo ""
-            echo "💡 The rule needs manual fixes or LLM review."
-            echo "   Run: yara-compile-loop.sh $improved_rule"
+            echo "💡 Install Python 3 for automatic fix features"
         fi
     else
         log_warn "yara binary not found - skipping compile check"
