@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Engineering Skills Hub</title>
+    <style>
+        :root {
+            --primary: #4fc3f7;
+            --primary-dim: #29b6f6;
+            --primary-glow: rgba(79, 195, 247, 0.4);
+            --bg: #0a1628;
+            --bg-grid: #0d1b2a;
+            --accent: #81d4fa;
+            --text-muted: #90a4ae;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            line-height: 1.6;
+            font-size: 16px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Subtle grid background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(79, 195, 247, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(79, 195, 247, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Glow effect */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                ellipse at 50% 0%,
+                rgba(79, 195, 247, 0.1) 0%,
+                transparent 70%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(79, 195, 247, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .header .tagline {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: var(--primary-dim);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .skill-card {
+            background: rgba(13, 27, 42, 0.6);
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            opacity: 0.5;
+        }
+
+        .skill-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(79, 195, 247, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-card h3::before {
+            content: "◆";
+            color: var(--primary);
+            font-size: 0.8rem;
+        }
+
+        .skill-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-card .links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .skill-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.3rem 0.8rem;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .skill-card a:hover {
+            background: rgba(79, 195, 247, 0.1);
+            border-color: var(--primary);
+        }
+
+        /* Pipeline Section */
+        .pipeline {
+            background: rgba(13, 27, 42, 0.6);
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .pipeline h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            text-align: center;
+        }
+
+        .pipeline-flow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pipeline-step {
+            background: rgba(79, 195, 247, 0.1);
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .pipeline-arrow {
+            color: var(--primary-dim);
+            font-size: 1.2rem;
+        }
+
+        .pipeline-desc {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .feature h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .feature p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(79, 195, 247, 0.2);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pipeline-flow {
+                flex-direction: column;
+            }
+            
+            .pipeline-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Detection Engineering Skills Hub</h1>
+            <p class="subtitle">AI-POWERED DETECTION WORKFLOWS</p>
+            <p class="tagline">A collection of LLM agent skills for malware detection, YARA rule generation, and threat intelligence</p>
+        </header>
+
+        <!-- Pipeline Overview -->
+        <section class="pipeline">
+            <h2>Complete Detection Pipeline</h2>
+            <div class="pipeline-flow">
+                <span class="pipeline-step">🔍 VirusTotal</span>
+                <span class="pipeline-arrow">→</span>
+                <span class="pipeline-step">📥 Download</span>
+                <span class="pipeline-arrow">→</span>
+                <span class="pipeline-step">⚙️ yarGen</span>
+                <span class="pipeline-arrow">→</span>
+                <span class="pipeline-step">🔧 YARA Expert</span>
+                <span class="pipeline-arrow">→</span>
+                <span class="pipeline-step">✨ Rule</span>
+            </div>
+            <p class="pipeline-desc">
+                Combine multiple skills into seamless detection engineering workflows.<br>
+                Hash → Sample → YARA Rule — all in one command.
+            </p>
+        </section>
+
+        <!-- Skills Grid -->
+        <section class="skills-grid">
+            <!-- Detection Engineering Meta-Skill -->
+            <article class="skill-card">
+                <h3>Detection Engineering</h3>
+                <p>Meta-skill that orchestrates VirusTotal, yarGen, and YARA rule expertise into a unified pipeline. Go from hash to production-ready YARA rule in one command.</p>
+                <div class="links">
+                    <a href="https://github.com/YARAHQ/detection-engineering-skill">GitHub</a>
+                    <a href="#docs">Documentation</a>
+                </div>
+            </article>
+
+            <!-- VirusTotal API Skill -->
+            <article class="skill-card">
+                <h3>VirusTotal API</h3>
+                <p>Query VirusTotal for threat intelligence on files, URLs, IPs, and domains. Supports lookups, scans, Intelligence searches, Livehunt, Retrohunt, and relationship exploration.</p>
+                <div class="links">
+                    <a href="https://github.com/YARAHQ/virustotal-api-skill">GitHub</a>
+                    <a href="#docs">Documentation</a>
+                </div>
+            </article>
+
+            <!-- yarGen Skill -->
+            <article class="skill-card">
+                <h3>yarGen</h3>
+                <p>Generate YARA rules from malware samples while filtering goodware strings. Includes database management, web API integration, and the new submit command for one-shot rule generation.</p>
+                <div class="links">
+                    <a href="https://github.com/YARAHQ/yargen-go-skill">GitHub</a>
+                    <a href="https://github.com/Neo23x0/yarGen-Go">yarGen-Go</a>
+                </div>
+            </article>
+
+            <!-- YARA Rule Skill -->
+            <article class="skill-card">
+                <h3>YARA Rule Expert</h3>
+                <p>Expert YARA rule authoring, review, and optimization. Embeds 60+ quality checks from yaraQA, performance guidelines, and style standards into your AI assistant.</p>
+                <div class="links">
+                    <a href="https://github.com/YARAHQ/yara-rule-skill">GitHub</a>
+                    <a href="https://yarahq.github.io/yara-rule-skill-site/">Website</a>
+                </div>
+            </article>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <div class="feature">
+                <div class="feature-icon">🔗</div>
+                <h4>Seamless Integration</h4>
+                <p>Skills work together as a unified detection platform</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <h4>AI-Assisted</h4>
+                <p>Natural language workflows powered by LLMs</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h4>One-Command</h4>
+                <p>Hash to YARA rule in a single operation</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✓</div>
+                <h4>Quality Assured</h4>
+                <p>Built-in validation and optimization</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Part of the <a href="https://github.com/YARAHQ">YARA HQ</a> ecosystem</p>
+            <p>Built for security researchers, by security researchers</p>
+        </footer>
+    </div>
+</body>
+</html>
