@@ -471,6 +471,48 @@
             </div>
         </section>
 
+        <!-- Installation -->
+        <section class="screen">
+            <div class="screen-header">INSTALLATION</div>
+            <div class="screen-content">
+                <p class="prompt">Add these skills to your LLM agent's context:</p>
+                
+                <h3 style="color: var(--phosphor); margin-top: 1rem;">Option 1: Clone and Copy (Recommended)</h3>
+                <pre style="background: rgba(0,0,0,0.3); padding: 1rem; margin: 0.5rem 0; overflow-x: auto;">
+# Detection Engineering (meta-skill)
+git clone https://github.com/YARAHQ/detection-engineering-skill.git
+cp -r detection-engineering-skill ~/.openclaw/skills/
+
+# VirusTotal API
+git clone https://github.com/YARAHQ/virustotal-api-skill.git
+cp -r virustotal-api-skill ~/.openclaw/skills/
+
+# yarGen
+git clone https://github.com/YARAHQ/yargen-go-skill.git
+cp -r yargen-go-skill ~/.openclaw/skills/yargen
+
+# YARA Rule Expert
+git clone https://github.com/YARAHQ/yara-rule-skill.git
+cp -r yara-rule-skill ~/.openclaw/skills/</pre>
+
+                <h3 style="color: var(--phosphor); margin-top: 1rem;">Option 2: Package as .skill File</h3>
+                <pre style="background: rgba(0,0,0,0.3); padding: 1rem; margin: 0.5rem 0; overflow-x: auto;">
+# Clone the meta skill
+git clone https://github.com/YARAHQ/detection-engineering-skill.git
+cd detection-engineering-skill
+
+# Package the skill
+python3 scripts/package_skill.py .
+
+# Install the packaged skill
+cp detection-engineering.skill ~/.openclaw/skills/</pre>
+
+                <p style="margin-top: 1rem; color: var(--phosphor-dim);">
+                    <strong>Supported Platforms:</strong> OpenClaw, Claude Desktop, and other MCP-based agents
+                </p>
+            </div>
+        </section>
+
         <!-- Footer -->
         <footer class="footer">
             <p>Part of the <a href="https://github.com/YARAHQ">YARA HQ</a> ecosystem | Built for security researchers, by security researchers</p>
